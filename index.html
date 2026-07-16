@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Degree Calculator</title>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        max-width:700px;
+        margin:30px auto;
+        line-height:1.8;
+    }
+    input{
+        width:120px;
+        padding:5px;
+        margin:5px 0;
+    }
+    button{
+        padding:10px 20px;
+        margin-top:15px;
+        font-size:16px;
+    }
+    .result{
+        margin-top:20px;
+        background:#f2f2f2;
+        padding:15px;
+        border-radius:8px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Degree Calculator</h2>
+
+<label>Your Ranking:</label><br>
+<input type="number" id="you" step="any"><br>
+
+<label>Total Graduates of Your Year:</label><br>
+<input type="number" id="all" step="any"><br>
+
+<label>College Average:</label><br>
+<input type="number" id="avg" step="any"><br>
+
+<label>Preliminary Degree:</label><br>
+<input type="number" id="pre" step="any"><br>
+
+<label>Months of Residency:</label><br>
+<input type="number" id="month" step="any"><br>
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result">
+    <h3>Results</h3>
+
+    <p><strong>Factor:</strong> <span id="factor">-</span></p>
+    <p><strong>Exam:</strong> <span id="exam">-</span></p>
+    <p><strong>Residency Months Degree:</strong> <span id="months">-</span></p>
+
+    <hr>
+
+    <h2>Final Result: <span id="final">-</span></h2>
+</div>
+
+<script>
+function calculate() {
+
+    let you = parseFloat(document.getElementById("you").value);
+    let all = parseFloat(document.getElementById("all").value);
+    let avg = parseFloat(document.getElementById("avg").value);
+    let pre = parseFloat(document.getElementById("pre").value);
+    let month = parseFloat(document.getElementById("month").value);
+
+    if (
+        isNaN(you) ||
+        isNaN(all) ||
+        isNaN(avg) ||
+        isNaN(pre) ||
+        isNaN(month) ||
+        all === 0
+    ) {
+        alert("Please enter valid values.");
+        return;
+    }
+
+    // Factor
+    let factor = (((1 - (you / all)) * 100 / 2) + (avg / 2)) * 0.30;
+
+    // Exam
+    let exam = pre * 0.70;
+
+    // Residency Months Degree
+    let residency = month * 0.50;
+
+    // Final
+    let final = factor + exam + residency;
+
+    document.getElementById("factor").textContent = factor.toFixed(2);
+    document.getElementById("exam").textContent = exam.toFixed(2);
+    document.getElementById("months").textContent = residency.toFixed(2);
+    document.getElementById("final").textContent = final.toFixed(2);
+}
+</script>
+
+</body>
+</html>
